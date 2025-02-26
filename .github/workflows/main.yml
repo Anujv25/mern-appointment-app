@@ -6,6 +6,7 @@ on:
       - main  # Or the default branch of your repo
     paths:
       - '**/*.js'  # Or any file pattern you want to check
+      - '**/*.jsx' # Check JSX files as well
 
 jobs:
   check-console-logs:
@@ -15,10 +16,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Check for console.log statements
+    - name: Check for console.log statements in JS and JSX
       run: |
-        # Find all files with console.log statements and exit with an error if any are found
-        if grep -r "console\.log" --include="*.js" .; then
+        # Find all files with console.log statements in both JS and JSX files
+        if grep -r "console\.log" --include="*.{js,jsx}" .; then
           echo "ERROR: Found console.log statements in the code!"
           exit 1
         else
