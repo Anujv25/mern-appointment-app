@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   console.log("ADDED LOGS")
-
+  console.log("ONE MORE LOG")
   return (
     <>
       <div>
