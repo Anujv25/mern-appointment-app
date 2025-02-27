@@ -22,7 +22,10 @@ mongoose.connect("mongodb+srv://Anuj:F85HuqMp1tXkDWis@appointmentapp.trtnl.mongo
 
 // import user schema
 const User = require('./models/userModel');
-
+async function insert(){
+  await User.create({name:"Anuj",email:"anujvwork2020@gmail.com"})
+}
+insert();
 // Sample route
 app.get('/', (req, res) => {
   res.send('Hello, MERN!');
