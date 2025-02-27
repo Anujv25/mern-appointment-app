@@ -1,0 +1,27 @@
+{
+  "name": "appointment-app",
+  "version": "1.0.0",
+  "description": "backend for app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anujv25/mern-appointment-app.git"
+  },
+  "author": "Anuj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anujv25/mern-appointment-app/issues"
+  },
+  "homepage": "https://github.com/Anujv25/mern-appointment-app#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^6.13.1",
+    "mongoose": "^8.11.0"
+  }
+}
