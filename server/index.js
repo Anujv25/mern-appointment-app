@@ -21,6 +21,7 @@ mongoose.connect("mongodb+srv://Elastic:EU53nl5zeYhQb924@appointmentapp.trtnl.mo
 // Use the authentication routes
 app.use('/api/auth', authRoutes);  // Prefix the routes with /api/auth
 
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

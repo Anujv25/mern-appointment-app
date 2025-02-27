@@ -31,12 +31,6 @@ const signup = async (req, res) => {
     // Respond with success message and token
     res.status(201).json({
       message: 'User created successfully',
-      token,
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-      },
     });
   } catch (error) {
     console.error(error);
@@ -44,4 +38,25 @@ const signup = async (req, res) => {
   }
 };
 
-module.exports = { signup };
+// Login controller function
+
+
+const login=async (req,res)=>{
+    const {email,password}=req.body;
+    try {
+        const user=await
+        User.findOne({email});  // Find user with the email
+        if(user && (await user.matchPassword(password))){
+            const token=jwt.sign({id:user._id},"KFPxzFa1bx",{expiresIn:'1h'});  // Generate JWT token
+            res.json({message:'User logged in successfully',token});  // Respond with success message and token
+        }else{
+            res.status(401).json({message:'Invalid credentials'});  // Throw error if credentials are invalid
+        }
+    } 
+
+    catch (error) {
+        console.error(error);
+        res.status(500).json({message:'Server error'});  // Throw error if server error
+    }
+}
+module.exports = { signup,login };
