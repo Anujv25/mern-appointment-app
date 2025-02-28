@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // Use TLS
   auth: {
     user: 'apikey', // Always 'apikey' for SendGrid
-    pass: "", // The API key you generated in SendGrid
+    pass: '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', // The API key you generated in SendGrid
   },
 });
 
