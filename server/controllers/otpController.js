@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-
+require('dotenv').config();
 // Store the OTP temporarily (in-memory or a DB, here we use an object as an example)
 let otpStore = {};  // In-memory storage for OTPs, could be replaced by DB for production
 
@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // Use TLS
   auth: {
     user: 'apikey', // Always 'apikey' for SendGrid
-    pass: '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', // The API key you generated in SendGrid
+    pass:process.env.SENDGRID_KEY, // The API key you generated in SendGrid
   },
 });
 
@@ -44,9 +44,9 @@ const generateAndSendOtp = (email) => {
 };
 
 // Function to verify OTP
-const verifyOtp = (email, otp) => {
-  const otpData = otpStore[email];
+const verifyOtp =(email, otp) => {
 
+  const otpData = otpStore[email];
   if (!otpData) {
     throw new Error('OTP not found or expired');
   }
@@ -79,7 +79,7 @@ const sendOtpMethod=async (req, res)=>{
 }
 
 const verifyOtpMethod=async (req, res)=>{
-
+  
     const { email, otp } = req.body;
   if (!email || !otp) {
     return res.status(400).json({ message: 'Email and OTP are required' });
