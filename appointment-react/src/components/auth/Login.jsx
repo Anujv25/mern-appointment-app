@@ -1,5 +1,8 @@
 import axios from 'axios'
-import { Link } from "react-router-dom";
+import {
+    Link
+  } from "react-router-dom";
+  
 const Login = () => {
 
     const handleSubmit=async ()=>{
@@ -15,7 +18,7 @@ const Login = () => {
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
             <button onClick={handleSubmit}>Login</button>
-            {/* <Link to="forgot">Forgot Passoword?</Link> */}
+            <Link to="auth/forgot">Forgot Passoword?</Link>
         </div>
     );
 }
