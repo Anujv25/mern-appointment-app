@@ -18,7 +18,7 @@ const Login = () => {
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
             <button onClick={handleSubmit}>Login</button>
-            <Link to="auth/forgot">Forgot Passoword?</Link>
+            <Link to="/auth/forgot">Forgot Passoword?</Link>
         </div>
     );
 }
