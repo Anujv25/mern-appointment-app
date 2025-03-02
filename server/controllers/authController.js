@@ -24,7 +24,7 @@ const signup = async (req, res) => {
     await newUser.save();
 
     // Generate JWT token after successful signup
-    const token = jwt.sign({ id: newUser._id },process.env.jwtSecret, {
+    const token = jwt.sign({ id: newUser._id },process.env.JWT_SECRET, {
       expiresIn: '1h',  // Token expiration time
     });
 
@@ -47,7 +47,7 @@ const login=async (req,res)=>{
         User.findOne({email});  // Find user with the email
 
         if(user && (await user.matchPassword(password))){
-            const token=jwt.sign({id:user._id},process.env.jwtSecret,{expiresIn:'1h'});  // Generate JWT token
+            const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1h'});  // Generate JWT token
             res.json({message:'User logged in successfully',token});  // Respond with success message and token
         }else{
             res.status(401).json({message:'Invalid credentials'});  // Throw error if credentials are invalid

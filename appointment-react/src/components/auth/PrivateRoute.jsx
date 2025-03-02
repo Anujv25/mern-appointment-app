@@ -7,7 +7,7 @@ const PrivateRoute = ({ children, ...rest }) => {
   console.log("TOKEN FROM PRIVATE ROUTE",context,test)
   if (!token) {
     // If no token, redirect to login
-    return <Navigate to="auth/login" replace />;
+    return <Navigate to="/auth/login" replace />;
   }
 
   // If token exists, render the protected page

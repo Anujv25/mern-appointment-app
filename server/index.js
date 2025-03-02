@@ -3,11 +3,37 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');  // Import the auth routes
-
+const appointmentRoutes = require('./routes/appointmentRoutes');  // Import the appointment routes
 dotenv.config();  // Load environment variables
+
+//swagger tool for api documentation
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Appointments API',
+      version: '1.0.0',
+      description: 'API documentation for appointment management',
+    },
+  },
+  // Path to the API docs
+  apis: ['./routes/*.js'], // Path to your route files
+};
+
+
+
+// Swagger docs
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Middleware
 app.use(cors());
@@ -20,9 +46,19 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 // Use the authentication routes
 app.use('/api/auth', authRoutes);  // Prefix the routes with /api/auth
+app.use('/api', appointmentRoutes); 
+
+
+
+
+
+
+
+
 
 
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+

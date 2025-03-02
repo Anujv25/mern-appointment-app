@@ -8,12 +8,13 @@ const Login = () => {
 
     const {login}=useAuth()
     const navigate = useNavigate();
+    const [formData,setFormData]=useState({email:"",password:""})
+    const handleChange=(e)=>{
+        setFormData({...formData,[e.target.name]:e.target.value})
+    }   
 
     const handleSubmit=async ()=>{
-        const response=await axios.post('http://localhost:5000/api/auth/login',{
-            email:'test@n.com',
-            password:'Test@123'
-        })
+        const response=await axios.post('http://localhost:5000/api/auth/login',formData)
         const token=response.data.token
 
         login(token)
@@ -25,8 +26,8 @@ const Login = () => {
 
 
             <h1>Login</h1>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input type="email" value={formData.email} name='email' onChange={handleChange} placeholder="Email" />
+            <input type="password" value={formData.password}  name="password" onChange={handleChange} placeholder="Password" />
             <button onClick={handleSubmit}>Login</button>
             <Link to="/auth/forgot">Forgot Passoword?</Link>
         </div>
