@@ -1,3 +1,4 @@
+const User = require('../models/User'); 
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 require('dotenv').config();
@@ -44,8 +45,7 @@ const generateAndSendOtp = (email) => {
 };
 
 // Function to verify OTP
-const verifyOtp =(email, otp) => {
-
+const verifyOtp = (email, otp) => {
   const otpData = otpStore[email];
   if (!otpData) {
     throw new Error('OTP not found or expired');
@@ -63,11 +63,14 @@ const verifyOtp =(email, otp) => {
   return { message: 'OTP verified successfully' };
 };
 
-
-const sendOtpMethod=async (req, res)=>{
-    const { email } = req.body;
+const sendOtpMethod = async (req, res) => {
+  const { email } = req.body;
   if (!email) {
     return res.status(400).json({ message: 'Email is required' });
+  }
+  const user = await User.findOne({ email });  // Find user with the email
+  if (!user) {
+    return res.status(400).json({ message: 'Email not found' });
   }
 
   try {
@@ -76,11 +79,10 @@ const sendOtpMethod=async (req, res)=>{
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-}
+};
 
-const verifyOtpMethod=async (req, res)=>{
-  
-    const { email, otp } = req.body;
+const verifyOtpMethod = async (req, res) => {
+  const { email, otp } = req.body;
   if (!email || !otp) {
     return res.status(400).json({ message: 'Email and OTP are required' });
   }
@@ -91,15 +93,9 @@ const verifyOtpMethod=async (req, res)=>{
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
-}
-
-
-
-
-
-
-
+};
 
 module.exports = {
-    sendOtpMethod,verifyOtpMethod
+  sendOtpMethod,
+  verifyOtpMethod
 };
