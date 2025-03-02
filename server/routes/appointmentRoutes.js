@@ -63,11 +63,12 @@
  */
 
 const express = require('express');
-const { addAppointment,getAppointments} = require('../controllers/appointmentController');  // Import signup controller
-const {addUserId} = require('../middleware/addUserId');
+const { addAppointment,getAppointments,getAppointmentById} = require('../controllers/appointmentController');  // Import signup controller
+const {addUserId,} = require('../middleware/addUserId');
 const router = express.Router();
 
 // Define the route for user signup
 router.post('/appointments',addUserId, addAppointment);  // Handle POST requests for appointments
 router.get('/appointments',addUserId, getAppointments);  // Handle GET requests for appointments
+router.get('/appointments/:id',addUserId, getAppointmentById);  // Handle GET requests for appointments
 module.exports = router;

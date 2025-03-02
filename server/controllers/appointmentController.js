@@ -51,8 +51,22 @@ const getAppointments=async (req,res)=>{
     res.status(200).json(appointments);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error' ,error});
   }
 }
 
-module.exports = { addAppointment,getAppointments };
+const getAppointmentById=async (req,res)=>{
+  const {id}=req.params;
+  try {
+    const appointment=await Appointments.findById(id);
+    if(!appointment){
+      return res.status(404).json({message:'Appointment not found'});
+    }
+    res.status(200).json(appointment);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:'Server error',error:error.message});
+  }
+}
+
+module.exports = { addAppointment,getAppointments,getAppointmentById };

@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import PrivateRoute from './components/auth/PrivateRoute'
 import {AuthProvider} from './components/auth/Context'
-import Appointments from './components/AddAppointment'
+import Appointments from './components/appointment/Appointment'
 
 function App() {
 
@@ -32,6 +32,14 @@ function App() {
       />
         <Route path="/auth/forgot" element={<ForgotPassword />} />
         <Route 
+        path="/appointments/:id" 
+        element={
+          <PrivateRoute>
+            <Appointments /> {/* Only accessible if user is authenticated */}
+          </PrivateRoute>
+        } 
+      />
+      <Route 
         path="/appointments" 
         element={
           <PrivateRoute>
