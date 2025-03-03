@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
   const [formData, setFormData] = useState({
     date: '',
+    startTime: '',
+    endTime: '',
     description: '',
     location: '',
     status: 'pending',
@@ -70,6 +72,26 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
           type="datetime-local"
           name="date"
           value={formData.date}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Start Time:</label>
+        <input
+          type="datetime-local"
+          name="startTime"
+          value={formData.startTime}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>End Time:</label>
+        <input
+          type="datetime-local"
+          name="endTime"
+          value={formData.endTime}
           onChange={handleChange}
           required
         />

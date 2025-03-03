@@ -69,4 +69,38 @@ const getAppointmentById=async (req,res)=>{
   }
 }
 
-module.exports = { addAppointment,getAppointments,getAppointmentById };
+
+const updateAppointmentsById=async (req,res)=>{
+  const {id}=req.params;
+  const {date,startTime,endTime, description, location,status } = req.body;
+  try {
+    const appointment=await Appointments.findByIdAndUpdate(id,{
+      date,startTime,endTime, description, location,status,description, 
+    },{new:true});  // Return the updated document
+    console.log(appointment)
+    if(!appointment){
+      return res.status(404).json({message:'Appointment not found'});
+    }   
+   
+    res.status(200).json(appointment)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:'Server error',error:error.message});
+  } 
+}
+
+const deleteAppointmentsById=async (req,res)=>{
+  const {id}=req.params;
+  try {
+    const appointment=await Appointments.findByIdAndDelete(id);
+    if(!appointment){
+      return res.status(404).json({message:'Appointment not found'});
+    }
+    res.status(200).json({message:'Appointment deleted successfully'});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:'Server error',error:error.message});
+  }
+}
+
+module.exports = { addAppointment,getAppointments,getAppointmentById,updateAppointmentsById,deleteAppointmentsById };

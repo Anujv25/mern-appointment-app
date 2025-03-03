@@ -4,6 +4,8 @@ import { Link} from 'react-router-dom';
 import axios from 'axios';
 import { useEffect,useState } from "react";
 import '../../App.css';
+import AppointmentList from "../appointment/AppointmentList";
+
 const Dashboard = () => {
     const {logout}=useAuth()
     const [query,setQuery]=useState('')
@@ -24,6 +26,19 @@ const Dashboard = () => {
             console.log(error)
         })
     }
+
+    const handleDelete=(id)=>{
+        axios.delete(`http://localhost:5000/api/appointments/${id}`,{
+            headers:{ 'Authorization': 'Bearer '+localStorage.getItem('token')}
+        })
+        .then((response)=>{
+            console.log(response)
+            getAppointments()
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
     useEffect(()=>{
                 getAppointments()   
     },[query])    
@@ -37,18 +52,7 @@ const Dashboard = () => {
             <div className="appointment-container">
 
            
-            {data?.map((appointment,index)=>{
-                const {_id}=appointment
-                return <Link to={`/appointments/${_id}`} className="item" key={appointment._id}>
-
-                    <div>
-                    <h3> {index+1}{appointment.description}</h3>
-                    <p>{appointment.status}</p>
-                    <p>{appointment.location}</p>
-                    <p>{appointment.date}</p>
-                    </div>
-                </Link>
-            })}
+             <AppointmentList data={data} handleDelete={handleDelete}/>
             </div>
         </div>
     );
