@@ -57,7 +57,7 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
 
       console.log(response.data);
       // Redirect or perform other actions after successful submission
-      navigate("/appointments")
+      navigate("/")
     } catch (error) {
       console.error(error);
       alert('There was an error with your request.');

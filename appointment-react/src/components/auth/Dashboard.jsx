@@ -1,4 +1,3 @@
-
 import { useAuth } from "./Context";
 import { Link} from 'react-router-dom';
 import axios from 'axios';
@@ -43,16 +42,27 @@ const Dashboard = () => {
                 getAppointments()   
     },[query])    
     return (
-        <div>
-            <h3>Dashboard </h3>
-           <Link to="/appointments">Add</Link>
-            <button onClick={handleLogout}>Logout</button>
-
-            <input type="text" placeholder="search" value={query} onChange={(e)=>setQuery(e.target.value)}/>
-            <div className="appointment-container">
-
-           
-             <AppointmentList data={data} handleDelete={handleDelete}/>
+        <div className="p-4">
+            <h3 className="text-2xl font-bold mb-4">Dashboard</h3>
+            <div className="flex items-center mb-4">
+                <Link to="/appointments" className="bg-blue-500 text-white px-4 py-2 rounded mr-4">Add</Link>
+                <input 
+                    className="search-input border border-gray-300 rounded px-2 py-1 mr-4" 
+                    type="text" 
+                    placeholder="search" 
+                    value={query} 
+                    onChange={(e)=>setQuery(e.target.value)}
+                />
+                <select className="border border-gray-300 rounded px-2 py-1 mr-4">
+                    <option>Status</option>
+                    <option>Pending</option>
+                    <option>Confirmed</option>
+                    <option>Cancelled</option>
+                </select>
+                <button className="logoutBtn bg-red-500 text-white px-4 py-2 rounded" onClick={handleLogout}>Logout</button>
+            </div>
+            <div className="bg-white p-4 rounded shadow flex">
+                <AppointmentList data={data} handleDelete={handleDelete}/>
             </div>
         </div>
     );
