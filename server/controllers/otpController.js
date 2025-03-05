@@ -1,6 +1,7 @@
 const User = require('../models/User'); 
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 // Store the OTP temporarily (in-memory or a DB, here we use an object as an example)
 let otpStore = {};  // In-memory storage for OTPs, could be replaced by DB for production
@@ -88,8 +89,19 @@ const verifyOtpMethod = async (req, res) => {
   }
 
   try {
-    const result = verifyOtp(email, otp);
-    return res.status(200).json(result);
+    const result = await verifyOtp(email, otp);
+    const user=await
+    User.findOne({email});  // Find user with the email
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Generate JWT token
+    const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1h'});  // Generate JWT token
+  
+    
+    return res.status(200).json({result,token});
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }

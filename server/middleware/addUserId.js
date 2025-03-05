@@ -1,3 +1,6 @@
+// middle to to fetch the user id from the token and add it to the request object
+
+
 const jwt = require('jsonwebtoken'); 
 const addUserId= (req, res, next) => {
     const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];
