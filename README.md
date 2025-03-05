@@ -1,9 +1,10 @@
-# mern-appointment-app
-# adding fe react code 
-# added github action for checking console.log
-# login , signup , forgot password, reser password
-# add , update , delete  appointmnet for afer login in the app
-# Private Routes 
+# MERN-appointment-app 
+
+1. adding fe react code 
+2. added github action for checking console.log
+3. login , signup , forgot password, reser password
+4. add , update , delete  appointmnet for afer login in the app
+5. Private Routes 
 
 
 
