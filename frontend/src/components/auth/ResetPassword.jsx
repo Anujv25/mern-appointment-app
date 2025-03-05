@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {
-    Link
+    Link,useNavigate
   } from "react-router-dom";
 import { useState } from 'react';
 const ResetPassword = () => {
@@ -10,6 +10,7 @@ const ResetPassword = () => {
         confirmPassword: '',
     });
 
+     const navigate = useNavigate();
     // make a post call with token to save password
     const handlePasswordSubmit=async ()=>{
         const response=await axios.put('http://localhost:5000/api/auth/reset-password',formData,{
@@ -21,7 +22,7 @@ const ResetPassword = () => {
 
 
         if(response.data){
-            console.log(response.data);
+            navigate("/auth/login")
         }
     }
     const handleChange = (e) => {
