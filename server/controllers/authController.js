@@ -59,4 +59,30 @@ const login=async (req,res)=>{
         res.status(500).json({message:'Server error'});  // Throw error if server error
     }
 }
-module.exports = { signup,login };
+
+
+const resetPassword=async (req,res)=>{
+  const {password,confirmPassword}=req.body;
+  const user_id = req.id;
+  if(password!==confirmPassword){
+    return res.status(400).json({message:'Passwords do not match'});
+  }
+  try{
+    const user=await User.findById(user_id);
+    if(user){
+      user.password=password;
+      await user.save();
+      res.json({message:'Password reset successfully'});
+    }else{
+      res.status(404).json({message:'User not found'});
+    }
+  }
+  catch(error){
+    console.error(error);
+    res.status(500).json({message:'Server error',error:message.error});
+  }
+
+
+
+}
+module.exports = { signup,login,resetPassword };
