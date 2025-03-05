@@ -63,7 +63,7 @@
  */
 
 const express = require('express');
-const { addAppointment,getAppointments,getAppointmentById, updateAppointmentsById, deleteAppointmentsById} = require('../controllers/appointmentController');  // Import signup controller
+const { addAppointment,getAppointments,getAppointmentById, updateAppointmentsById, deleteAppointmentsById, markAppointmentFavourite} = require('../controllers/appointmentController');  // Import signup controller
 const {addUserId,} = require('../middleware/addUserId');
 const router = express.Router();
 
@@ -73,4 +73,5 @@ router.get('/appointments',addUserId, getAppointments);  // Handle GET requests 
 router.get('/appointments/:id',addUserId, getAppointmentById);  // Handle GET requests for appointments
 router.put('/appointments/:id',addUserId, updateAppointmentsById);  // Handle GET requests for appointments
 router.delete('/appointments/:id',addUserId, deleteAppointmentsById);  // Handle GET requests for appointments
+router.put('/appointments/favourite/:id',addUserId,markAppointmentFavourite) 
 module.exports = router;

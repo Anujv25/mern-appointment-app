@@ -72,10 +72,10 @@ const getAppointmentById=async (req,res)=>{
 
 const updateAppointmentsById=async (req,res)=>{
   const {id}=req.params;
-  const {date,startTime,endTime, description, location,status } = req.body;
+  const {date,startTime,endTime, description, location,status,favourite } = req.body;
   try {
     const appointment=await Appointments.findByIdAndUpdate(id,{
-      date,startTime,endTime, description, location,status,description, 
+      date,startTime,endTime, description, location,status,description,favourite
     },{new:true});  // Return the updated document
     console.log(appointment)
     if(!appointment){
@@ -103,4 +103,23 @@ const deleteAppointmentsById=async (req,res)=>{
   }
 }
 
-module.exports = { addAppointment,getAppointments,getAppointmentById,updateAppointmentsById,deleteAppointmentsById };
+
+const markAppointmentFavourite=async (req,res)=>{
+  const {id}=req.params;
+  const {favourite } = req.body;
+  try {
+    const appointment=await Appointments.findByIdAndUpdate(id,{
+     favourite
+    },{new:true});  // Return the updated document
+    if(!appointment){
+      return res.status(404).json({message:'Appointment not found'});
+    }   
+   
+    res.status(200).json(appointment)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:'Server error',error:error.message});
+  } 
+}
+
+module.exports = { addAppointment,getAppointments,getAppointmentById,updateAppointmentsById,deleteAppointmentsById,markAppointmentFavourite };

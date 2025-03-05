@@ -40,6 +40,10 @@ const appointmentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  favourite:{
+    type:Boolean,
+    default:false
+  }
 });
 
 // Create the Appointment model

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios'
 const AppointmentList = ({ data, handleDelete }) => {
     const navigate = useNavigate(); // Hook for redirection
 
@@ -13,10 +14,30 @@ const AppointmentList = ({ data, handleDelete }) => {
     const updateTime=(time)=>{
         return moment(time).format('hh:mm A');
     }
+    const handleLike=async (_id,favourite)=>{
+        try {
+            const response = await axios({
+              method:"put",
+              url: `http://localhost:5000/api/appointments/favourite/${_id}`,
+              data: {favourite:!favourite},
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            });
+      
+            console.log(response.data);
+            // Redirect or perform other actions after successful submission
+          } catch (error) {
+            console.error(error);
+            alert('There was an error with your request.');
+          }
+    };
+      
+    
     return (
         <>
             {data?.map((appointment, index) => {
-                const { _id, description, status, location, date ,startTime,endTime} = appointment;
+                const { _id, description, status, location, date ,startTime,endTime,favourite} = appointment;
                 return (
                     <div key={_id} className="item">
                         <div>
@@ -37,6 +58,7 @@ const AppointmentList = ({ data, handleDelete }) => {
                             <p>{location}</p>
                             <p>{updateDate(date)}</p>
                             <p>{updateTime(startTime)} - {updateTime(endTime)}</p>
+                            <button onClick={()=>handleLike(_id,favourite)}>{favourite?"Unlike":"Like"}</button>
                         </div>
                     </div>
                 );
