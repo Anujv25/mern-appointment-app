@@ -9,7 +9,7 @@
 
 
 Pending Items
-1. Sort appoitment by status
+1. Sort appointment by status
 2. Implement React Query for Server Side Data
 3. Optimize application by using form and other stratergies
 4. Mark as Fav for appointment.
