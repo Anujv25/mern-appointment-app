@@ -7,8 +7,7 @@ const appointmentRoutes = require('./routes/appointmentRoutes');  // Import the 
 dotenv.config();  // Load environment variables
 
 //swagger tool for api documentation
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,12 +27,6 @@ const swaggerOptions = {
 };
 
 
-
-// Swagger docs
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
-
-// Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Middleware
 app.use(cors());
