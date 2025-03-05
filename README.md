@@ -15,5 +15,6 @@ Pending Items
 4. Mark as Fav for appointment.
 5. Redux Thunk if required.
 6.  A wrapper for API Calls.
+# redirect after  reset password is success.
 
 
