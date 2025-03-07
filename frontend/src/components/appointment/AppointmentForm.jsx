@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
   const [formData, setFormData] = useState({
-    date: '',
-    startTime: '',
-    endTime: '',
+    date: '2025-03-08T15:15:00',
+    startTime: '2025-03-08T15:15:00',
+    endTime: '2025-03-08T15:15:00',
     description: '',
     location: '',
     status: 'pending',
@@ -21,6 +21,8 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
         description: existingAppointmentData.description,
         location: existingAppointmentData.location,
         status: existingAppointmentData.status,
+        startTime:existingAppointmentData.startTime,
+        endTime:existingAppointmentData.endTime
       });
     }
   }, [appointmentId, existingAppointmentData]);
@@ -28,6 +30,7 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -63,6 +66,13 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
       alert('There was an error with your request.');
     }
   };
+  const formatDateTime=(date)=>{
+    const utcDate = new Date(date);
+  
+    // Convert to local time (automatically adjusted for the user's time zone)
+    const localDate = utcDate.toISOString().slice(0, 16);  //
+    return localDate
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -71,7 +81,7 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
         <input
           type="datetime-local"
           name="date"
-          value={formData.date}
+          value={formatDateTime(formData.date)}
           onChange={handleChange}
           required
         />
@@ -81,7 +91,7 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
         <input
           type="datetime-local"
           name="startTime"
-          value={formData.startTime}
+          value={formatDateTime(formData.startTime)}
           onChange={handleChange}
           required
         />
@@ -91,7 +101,7 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
         <input
           type="datetime-local"
           name="endTime"
-          value={formData.endTime}
+          value={formatDateTime(formData.endTime)}
           onChange={handleChange}
           required
         />
