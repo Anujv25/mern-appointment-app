@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios'
-import { useDeleteAppointment } from '../../hooks/useAppointmentsResource';
-const AppointmentList = ({ data }) => {
+import { useDeleteAppointment ,useAppointMents} from '../../hooks/useAppointmentsResource';
+const AppointmentList = ({ query }) => {
     const navigate = useNavigate(); // Hook for redirection
     const deleteUser = useDeleteAppointment();
+    const { data: appointments, isLoading, error } =   useAppointMents(query)
 
     const handleClick = (_id) => {
         // Navigate to the appointment detail page
@@ -38,7 +39,8 @@ const AppointmentList = ({ data }) => {
     
     return (
         <>
-            {data?.map((appointment, index) => {
+
+            { isLoading?<p>loadin</p>: appointments?.map((appointment, index) => {
                 const { _id, description, status, location, date ,startTime,endTime,favourite} = appointment;
                 return (
                     <div key={_id} className="item">

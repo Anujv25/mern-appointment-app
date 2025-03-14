@@ -1,17 +1,16 @@
 import { useAuth } from "./Context";
 import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { useEffect,useState ,useCallback} from "react";
+import { useEffect,useState ,useCallback,useRef} from "react";
 import '../../App.css';
 import AppointmentList from "../appointment/AppointmentList";
 import { useAppointMents, useDeleteAppointment ,} from "../../hooks/useAppointmentsResource"
-import useDebounce from "../../hooks/useDebounce";
 
 const Dashboard = () => {
     const {logout}=useAuth();
     const [query,setQuery]=useState('');
    
-    const { data: appointments, isLoading, error } = useAppointMents(query);
+  
     const handleLogout=()=>{
         localStorage.removeItem('token')
         logout();
@@ -19,9 +18,6 @@ const Dashboard = () => {
     const handleQueryChange = (e) => {
         setQuery(e.target.value);
     }
-
-    if (isLoading) return <p>Loading users...</p>;
-    if (error) return <p>Error fetching users</p>;
     return (
         <div className="p-4">
             <h3 className="text-2xl font-bold mb-4">Dashboard</h3>
@@ -44,7 +40,9 @@ const Dashboard = () => {
                 <button className="logoutBtn bg-red-500 text-white px-4 py-2 rounded" onClick={handleLogout}>Logout</button>
             </div>
             <div className="bg-white p-4 rounded shadow flex">
-                <AppointmentList data={appointments} />
+              
+                <AppointmentList  query={query}/>
+                
             </div>
         </div>
     );
