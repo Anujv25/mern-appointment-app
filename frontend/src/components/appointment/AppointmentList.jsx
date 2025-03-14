@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios'
-const AppointmentList = ({ data, handleDelete }) => {
+import { useDeleteAppointment } from '../../hooks/useAppointmentsResource';
+const AppointmentList = ({ data }) => {
     const navigate = useNavigate(); // Hook for redirection
+    const deleteUser = useDeleteAppointment();
 
     const handleClick = (_id) => {
         // Navigate to the appointment detail page
@@ -49,7 +51,7 @@ const AppointmentList = ({ data, handleDelete }) => {
                                     onClick={(e) => {
                                         // Prevent the click event from triggering redirection
                                         e.stopPropagation();
-                                        handleDelete(_id);
+                                        deleteUser.mutate(_id);
                                     }}
                                 >
                                     Delete

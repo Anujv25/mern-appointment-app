@@ -12,11 +12,19 @@ import {
 import PrivateRoute from './components/auth/PrivateRoute'
 import {AuthProvider} from './components/auth/Context'
 import Appointments from './components/appointment/Appointment'
+import { QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+
+
+ const queryClient = new QueryClient();
 
 function App() {
 
   return (
     <>
+     <QueryClientProvider client={queryClient}>
     <AuthProvider>
     <Router>
       <div>
@@ -54,6 +62,7 @@ function App() {
       </div>
       </Router>  
       </AuthProvider>
+      </QueryClientProvider>
     </>
   )
 }
