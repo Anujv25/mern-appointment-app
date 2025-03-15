@@ -68,7 +68,7 @@ const AppointmentForm = ({ appointmentId, existingAppointmentData }) => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Date:</label>
-        <input
+        <InputField
           type="datetime-local"
           name="date"
           value={formData.date}

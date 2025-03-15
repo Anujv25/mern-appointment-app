@@ -5,7 +5,7 @@ import { useEffect,useState ,useCallback,useRef} from "react";
 import '../../App.css';
 import AppointmentList from "../appointment/AppointmentList";
 import { useAppointMents, useDeleteAppointment ,} from "../../hooks/useAppointmentsResource"
-
+import HomeTemplate from "../templates/HomeTemplate";
 const Dashboard = () => {
     const {logout}=useAuth();
     const [query,setQuery]=useState('');
@@ -19,8 +19,8 @@ const Dashboard = () => {
         setQuery(e.target.value);
     }
     return (
+        <HomeTemplate>
         <div className="p-4">
-            <h3 className="text-2xl font-bold mb-4">Dashboard</h3>
             <div className="flex items-center mb-4">
                 <Link to="/appointments" className="bg-blue-500 text-white px-4 py-2 rounded mr-4">Add</Link>
                 <input id="search"
@@ -45,6 +45,7 @@ const Dashboard = () => {
                 
             </div>
         </div>
+        </HomeTemplate>
     );
 }
 

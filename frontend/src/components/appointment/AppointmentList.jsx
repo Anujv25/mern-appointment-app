@@ -1,7 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios'
+import Button from '../atoms/Button';
+import './Appointment.css';
 import { useDeleteAppointment ,useAppointMents} from '../../hooks/useAppointmentsResource';
+
+
 const AppointmentList = ({ query }) => {
     const navigate = useNavigate(); // Hook for redirection
     const deleteUser = useDeleteAppointment();
@@ -39,10 +43,11 @@ const AppointmentList = ({ query }) => {
     
     return (
         <>
-
+            <div className='container'>
             { isLoading?<p>loadin</p>: appointments?.map((appointment, index) => {
                 const { _id, description, status, location, date ,startTime,endTime,favourite} = appointment;
                 return (
+                    
                     <div key={_id} className="item">
                         <div>
                             {/* Add onClick for redirection */}
@@ -62,11 +67,14 @@ const AppointmentList = ({ query }) => {
                             <p>{location}</p>
                             <p>{updateDate(date)}</p>
                             <p>{updateTime(startTime)} - {updateTime(endTime)}</p>
-                            <button onClick={()=>handleLike(_id,favourite)}>{favourite?"Unlike":"Like"}</button>
+                            
+                            <Button onClick={()=>handleLike(_id,favourite)}>{favourite?"Unlike":"Like"}</Button>
                         </div>
                     </div>
+                   
                 );
             })}
+             </div>
         </>
     );
 };
