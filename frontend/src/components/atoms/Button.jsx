@@ -1,4 +1,4 @@
-const Button=({children,onClick,className,label})=>{
+const Button=({onClick,className,label})=>{
     return <button  onClick={onClick} className={className}>{label}</button>
 
 }

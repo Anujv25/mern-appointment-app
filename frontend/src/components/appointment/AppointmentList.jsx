@@ -68,7 +68,7 @@ const AppointmentList = ({ query }) => {
                             <p>{updateDate(date)}</p>
                             <p>{updateTime(startTime)} - {updateTime(endTime)}</p>
                             
-                            <Button onClick={()=>handleLike(_id,favourite)}>{favourite?"Unlike":"Like"}</Button>
+                            <Button label={favourite?"Unlike":"Like"} onClick={()=>handleLike(_id,favourite)}/>
                         </div>
                     </div>
                    
