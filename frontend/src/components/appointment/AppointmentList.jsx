@@ -4,11 +4,12 @@ import axios from 'axios'
 import Button from '../atoms/Button';
 import './Appointment.css';
 import { useDeleteAppointment ,useAppointMents} from '../../hooks/useAppointmentsResource';
-
+import useDebounce from '../../hooks/useDebounce';
 
 const AppointmentList = ({ query }) => {
     const navigate = useNavigate(); // Hook for redirection
     const deleteUser = useDeleteAppointment();
+   
     const { data: appointments, isLoading, error } =   useAppointMents(query)
 
     const handleClick = (_id) => {
@@ -39,7 +40,6 @@ const AppointmentList = ({ query }) => {
             alert('There was an error with your request.');
           }
     };
-      
     
     return (
         <>

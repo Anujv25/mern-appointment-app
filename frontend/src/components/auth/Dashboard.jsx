@@ -1,15 +1,16 @@
 import { useAuth } from "./Context";
 import { Link} from 'react-router-dom';
-import axios from 'axios';
-import { useEffect,useState ,useCallback,useRef} from "react";
+import { useState } from "react";
 import '../../App.css';
 import AppointmentList from "../appointment/AppointmentList";
-import { useAppointMents, useDeleteAppointment ,} from "../../hooks/useAppointmentsResource"
 import HomeTemplate from "../templates/HomeTemplate";
+import InputField from "../molecules/InputField";
+import useDebounce from "../../hooks/useDebounce";
+
 const Dashboard = () => {
     const {logout}=useAuth();
     const [query,setQuery]=useState('');
-   
+    const debouncedText=useDebounce(query,500)
   
     const handleLogout=()=>{
         localStorage.removeItem('token')
@@ -23,7 +24,7 @@ const Dashboard = () => {
         <div className="p-4">
             <div className="flex items-center mb-4">
                 <Link to="/appointments" className="bg-blue-500 text-white px-4 py-2 rounded mr-4">Add</Link>
-                <input id="search"
+                <InputField id="search"
                     className="search-input border border-gray-300 rounded px-2 py-1 mr-4" 
                     type="text" 
                     placeholder="search" 
@@ -41,7 +42,7 @@ const Dashboard = () => {
             </div>
             <div className="bg-white p-4 rounded shadow flex">
               
-                <AppointmentList  query={query}/>
+                <AppointmentList  query={debouncedText}/>
                 
             </div>
         </div>
